@@ -8,6 +8,12 @@
            :get-items-by-type
            {:fn datomic.ion.starter.lambdas/get-items-by-type
             :description "return inventory items by type"}
+           :pagination
+           {:fn datomic.ion.starter.lambdas/pagination
+            :description "Lambda ion that enables paging."}
+           :pagination-lambda-proxy
+           {:fn datomic.ion.starter.lambdas/pagination-lambda-proxy
+            :description "Lambda proxy integration entry point for contracts that enables paging."}
            :get-items-by-type-lambda-proxy
            {:fn datomic.ion.starter.http/get-items-by-type-lambda-proxy
             :description "lambda proxy integration entry point for get-items-by-type"}}

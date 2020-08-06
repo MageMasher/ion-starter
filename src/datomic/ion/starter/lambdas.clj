@@ -28,3 +28,15 @@
   [_]
   (-> (starter/ensure-sample-dataset)
       edn/write-str))
+
+(defn pagination
+  "Lambda ion that enables paging."
+  [{:keys [input]}]
+  (-> (starter/get-db "jgehtland-load-test")
+      (starter/paginated-contracts-ion
+        "admin@user.com"
+        #uuid"eb609fca-6fd6-4c47-a36a-fe6762498b36"
+        (or
+          ;(some-> input json/read-str)
+            {}))
+      edn/write-str))
