@@ -39,4 +39,4 @@
         (or
           ;(some-> input json/read-str)
             {}))
-      edn/write-str))
+            json/write-str))
