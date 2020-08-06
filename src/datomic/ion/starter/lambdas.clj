@@ -32,11 +32,20 @@
 (defn pagination
   "Lambda ion that enables paging."
   [{:keys [input]}]
-  (-> (starter/get-db "jgehtland-load-test")
-      (starter/paginated-contracts-ion
-        "admin@user.com"
-        #uuid"eb609fca-6fd6-4c47-a36a-fe6762498b36"
-        (or
-          ;(some-> input json/read-str)
+  (let [inst->iso-string (fn [moment]
+                           (let [s (pr-str moment)]
+                             (subs s 7 (- (.length s) 1))))
+        ;TODO: Replace this garbage inst->iso-string
+        value-fn (fn [k v]
+                   (condp instance? v
+                     java.util.Date (inst->iso-string v)
+                     java.util.UUID (str v)
+                     v))]
+    (-> (starter/get-db "jgehtland-load-test")
+        (starter/paginated-contracts-ion
+          "admin@user.com"
+          #uuid"eb609fca-6fd6-4c47-a36a-fe6762498b36"
+          (or
+            ;(some-> input json/read-str)
             {}))
-            json/write-str))
+        (json/write-str :value-fn value-fn))))

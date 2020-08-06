@@ -36,17 +36,3 @@
 
 (def get-items-by-type-lambda-proxy
   (apigw/ionize get-items-by-type))
-
-
-(defn pagination
-  "Web handler that enables paging."
-  [{:keys [headers body]}]
-  (-> (starter/get-db)
-      (starter/paginated-contracts-ion "admin@user.com"
-                                       #uuid"eb609fca-6fd6-4c47-a36a-fe6762498b36"
-                                       {})
-      json/write-str
-      json-response))
-
-(def pagination-lambda-proxy
-  (apigw/ionize pagination))
